@@ -1,28 +1,37 @@
-<ion-view view-title="Dashboard">
-  <ion-content class="padding">
-    <div class="list card">
-      <div class="item item-divider">Recent Updates</div>
-      <div class="item item-body">
-        <div>
-          There is a fire in <b>sector 3</b>
+<ion-view view-title="Calls">
+    <ion-content class="">
+
+        <ion-list>
+
+            <label class="item item-input">
+                <span class="input-label">Number</span>
+                <input type="tel" ng-model="phoneNumber">
+            </label>
+
+            <button class="button button-block button-positive" ng-click="register()" ng-hide="registered">
+                Register
+            </button>
+
+            <div ng-show="registered">
+                 <button class="button button-block button-positive" ng-click="callPhone()" ng-hide="onCall">
+                    Place Call
+                </button>
+
+                <button class="button button-block button-assertive" ng-click="endCall()" ng-show="onCall">
+                        End Call
+                </button>
+            </div>
+
+
+
+
+        </ion-list>
+
+        <div style="display: none">
+            <video id="my-video" muted="muted"></video>
+            <video id="their-video"></video>
         </div>
-      </div>
-    </div>
-    <div class="list card">
-      <div class="item item-divider">Health</div>
-      <div class="item item-body">
-        <div>
-          You ate an apple today!
-        </div>
-      </div>
-    </div>
-    <div class="list card">
-      <div class="item item-divider">Upcoming</div>
-      <div class="item item-body">
-        <div>
-          You have <b>29</b> meetings on your calendar tomorrow.
-        </div>
-      </div>
-    </div>
-  </ion-content>
+
+
+    </ion-content>
 </ion-view>

@@ -1,0 +1,25 @@
+<ion-view view-title="Settings">
+  <ion-content>
+    <ion-list>
+
+       <label class="item item-input">
+        <span class="input-label">Server</span>
+        <input type="text" ng-model="settings.server">
+      </label>
+
+       <label class="item item-input">
+         <span class="input-label">Username</span>
+         <input type="text" ng-model="settings.user">
+       </label>
+
+       <label class="item item-input">
+        <span class="input-label">Password</span>
+        <input type="text" ng-model="settings.password">
+      </label>
+
+      <button class="button button-block button-positive" ng-click="save()">
+        Save
+      </button>
+    </ion-list>
+  </ion-content>
+</ion-view>
