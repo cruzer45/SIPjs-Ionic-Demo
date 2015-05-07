@@ -103,10 +103,12 @@ angular.module('starter.controllers', [])
             session.mediaHandler.on('addStream', function (event) {
                 remoteView.src = window.URL.createObjectURL(event.stream);
             });
-
             session.on('bye', function () {
-                $scope.onCall = false;
+                $scope.$apply(function(){
+                    $scope.onCall = false;
+                });
                 session = null;
+
             });
 
             $scope.onCall = true;
@@ -114,7 +116,9 @@ angular.module('starter.controllers', [])
 
 
         $scope.endCall = function () {
-            session.bye();
+            if(session){
+                session.bye();
+            }
             session = null;
             $scope.onCall = false;
         }
@@ -123,7 +127,7 @@ angular.module('starter.controllers', [])
 
     .controller('SettingsCtrl', function ($scope, $LocalStorage, $state) {
         $scope.settings = {
-            server: 'ws://10.19.10.234:5066asdfasdfasd',
+            server: 'ws://10.19.10.234:5066',
             user: 'sip:1003@10.19.10.234',
             password: '1234'
         };
