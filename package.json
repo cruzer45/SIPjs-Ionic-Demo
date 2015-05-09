@@ -21,7 +21,8 @@
     "org.apache.cordova.media",
     "org.apache.cordova.media-capture",
     "org.apache.cordova.splashscreen",
-    "org.apache.cordova.file"
+    "org.apache.cordova.file",
+    "com.dooble.audiotoggle"
   ],
   "cordovaPlatforms": [
     {

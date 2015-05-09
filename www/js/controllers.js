@@ -1,12 +1,14 @@
 angular.module('starter.controllers', [])
 
     .controller('DashCtrl', function ($scope, $LocalStorage, $ionicPopup) {
+
         var settings = null;
         var session = null;
         var phone = null;
         $scope.onCall = false;
         $scope.registered = false;
-        $scope.phoneNumber = '1005';
+        $scope.phoneNumber = '1002';
+        var resgisterDisplayed = false;
 
 
         $scope.$on('$ionicView.enter', function () {
@@ -39,20 +41,23 @@ angular.module('starter.controllers', [])
             });
 
             phone.on('registered', function (e) {
+
                 console.log('Successfully registered with the server.');
-                $scope.registered = true;
-                var alertPopup = $ionicPopup.alert({
-                    title: 'Device Registered!'
-                });
+                if (!resgisterDisplayed) {
+                    resgisterDisplayed = true;
+                    $scope.registered = true;
+                    var alertPopup = $ionicPopup.alert({
+                        title: 'Device Registered!'
+                    });
+                }
+
+
             });
 
-            phone.start()
-
+            phone.start();
         }
 
-        $scope.callPhone = function () {
-
-            //AudioToggle.setAudioMode(AudioToggle.EARPIECE);
+        $scope.callPhone = function (phoneNumber) {
 
             //var session = null;
 
@@ -99,14 +104,22 @@ angular.module('starter.controllers', [])
                 }
             };
 
-            session = phone.invite($scope.phoneNumber, options);
+            console.log('Now Calling: ', phoneNumber);
+            window.AudioToggle.setAudioMode(AudioToggle.EARPIECE);
+            session = phone.invite(phoneNumber, options);
             session.mediaHandler.on('addStream', function (event) {
                 remoteView.src = window.URL.createObjectURL(event.stream);
             });
             session.on('bye', function () {
-                $scope.$apply(function(){
-                    $scope.onCall = false;
-                });
+                try {
+                    $scope.$apply(function () {
+                        $scope.onCall = false;
+                    });
+                }
+                catch (err) {
+
+                }
+                window.AudioToggle.setAudioMode(AudioToggle.SPEAKER);
                 session = null;
 
             });
@@ -116,7 +129,7 @@ angular.module('starter.controllers', [])
 
 
         $scope.endCall = function () {
-            if(session){
+            if (session) {
                 session.bye();
             }
             session = null;
@@ -127,8 +140,8 @@ angular.module('starter.controllers', [])
 
     .controller('SettingsCtrl', function ($scope, $LocalStorage, $state) {
         $scope.settings = {
-            server: 'ws://10.19.10.234:5066',
-            user: 'sip:1003@10.19.10.234',
+            server: 'ws://10.0.0.111:5066',
+            user: 'sip:1003@10.0.0.111',
             password: '1234'
         };
 
