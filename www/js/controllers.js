@@ -43,13 +43,13 @@ angular.module('starter.controllers', [])
             phone.on('registered', function (e) {
 
                 console.log('Successfully registered with the server.');
-                if (!resgisterDisplayed) {
+                //if (!resgisterDisplayed) {
                     resgisterDisplayed = true;
                     $scope.registered = true;
                     var alertPopup = $ionicPopup.alert({
                         title: 'Device Registered!'
                     });
-                }
+                //}
 
 
             });
@@ -105,7 +105,7 @@ angular.module('starter.controllers', [])
             };
 
             console.log('Now Calling: ', phoneNumber);
-            window.AudioToggle.setAudioMode(AudioToggle.EARPIECE);
+            //window.AudioToggle.setAudioMode(AudioToggle.EARPIECE);
             session = phone.invite(phoneNumber, options);
             session.mediaHandler.on('addStream', function (event) {
                 remoteView.src = window.URL.createObjectURL(event.stream);
@@ -119,7 +119,7 @@ angular.module('starter.controllers', [])
                 catch (err) {
 
                 }
-                window.AudioToggle.setAudioMode(AudioToggle.SPEAKER);
+                //window.AudioToggle.setAudioMode(AudioToggle.SPEAKER);
                 session = null;
 
             });
