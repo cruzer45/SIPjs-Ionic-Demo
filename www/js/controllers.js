@@ -11,6 +11,7 @@ angular.module('starter.controllers', [])
         var resgisterDisplayed = false;
 
 
+
         $scope.$on('$ionicView.enter', function () {
             saved_settings = $LocalStorage.getObject('settings');
             if (Object.keys(saved_settings).length > 0) {
@@ -105,7 +106,7 @@ angular.module('starter.controllers', [])
             };
 
             console.log('Now Calling: ', phoneNumber);
-            //window.AudioToggle.setAudioMode(AudioToggle.EARPIECE);
+            AudioToggle.setAudioMode(AudioToggle.EARPIECE);
             session = phone.invite(phoneNumber, options);
             session.mediaHandler.on('addStream', function (event) {
                 remoteView.src = window.URL.createObjectURL(event.stream);
@@ -119,7 +120,7 @@ angular.module('starter.controllers', [])
                 catch (err) {
 
                 }
-                //window.AudioToggle.setAudioMode(AudioToggle.SPEAKER);
+                AudioToggle.setAudioMode(AudioToggle.SPEAKER);
                 session = null;
 
             });
