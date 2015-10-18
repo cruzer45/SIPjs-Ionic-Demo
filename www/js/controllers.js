@@ -7,7 +7,11 @@ angular.module('starter.controllers', [])
         var phone = null;
         $scope.onCall = false;
         $scope.registered = false;
-        $scope.phoneNumber = '1002';
+        // $scope.phoneNumber = '1002';
+        // $scope.phoneNumber = '8018892666';
+        $scope.phoneNumber = '8003733411';
+        
+
         var resgisterDisplayed = false;
 
 
@@ -25,7 +29,8 @@ angular.module('starter.controllers', [])
             var configuration = {
                 'ws_servers': settings.server,
                 'uri': settings.user,
-                'password': settings.password
+                'password': settings.password,
+                stunServers: ["stun.l.google.com:19302", "stun1.l.google.com:19302"]
             };
 
             phone = new SIP.UA(configuration);
@@ -106,7 +111,7 @@ angular.module('starter.controllers', [])
             };
 
             console.log('Now Calling: ', phoneNumber);
-            AudioToggle.setAudioMode(AudioToggle.EARPIECE);
+            //AudioToggle.setAudioMode(AudioToggle.EARPIECE);
             session = phone.invite(phoneNumber, options);
             session.mediaHandler.on('addStream', function (event) {
                 remoteView.src = window.URL.createObjectURL(event.stream);
@@ -120,7 +125,7 @@ angular.module('starter.controllers', [])
                 catch (err) {
 
                 }
-                AudioToggle.setAudioMode(AudioToggle.SPEAKER);
+                //AudioToggle.setAudioMode(AudioToggle.SPEAKER);
                 session = null;
 
             });
@@ -131,7 +136,13 @@ angular.module('starter.controllers', [])
 
         $scope.endCall = function () {
             if (session) {
-                session.bye();
+                if ($scope.onCall){
+                    session.bye();
+                }
+                
+                else{
+                    session.cencel();
+                }
             }
             session = null;
             $scope.onCall = false;
@@ -141,10 +152,18 @@ angular.module('starter.controllers', [])
 
     .controller('SettingsCtrl', function ($scope, $LocalStorage, $state) {
         $scope.settings = {
-            server: 'ws://10.0.0.111:5066',
-            user: 'sip:1003@10.0.0.111',
-            password: '1234'
+            server: 'ws://209.41.90.202:5066',
+            user: 'sip:200@209.41.90.202',
+            password: 'C92507058214'
         };
+
+
+
+        //  $scope.settings = {
+        //     server: 'ws://10.0.0.111:5066',
+        //     user: 'sip:200@10.0.0.111',
+        //     password: 'C92507058214'
+        // };
 
         $scope.$on('$ionicView.enter', function () {
             saved_settings = $LocalStorage.getObject('settings');
